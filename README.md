@@ -14,6 +14,6 @@ Run the following in a dedicated [virtual environment](https://virtualenv.pypa.i
 $ python -m pip install -r requirements.txt
 ```
 
-# Usage
+## Usage
 
 **TODO**
