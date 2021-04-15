@@ -1,3 +1,3 @@
 # DSH Sentiment Classification
 
-Repo for our sentimental classification implementation.
+Repo for our sentiment classification implementation.
