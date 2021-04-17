@@ -14,13 +14,8 @@ def trainset_to_df(path, representation='bag_of_words'):
 
     with open(path, 'r') as f:
         lines = f.readlines()
-        lines = [line.rstrip('\n').strip() for line in lines]
 
-    if representation == 'bag_of_words':
-        lines = [[line.split()[0], line.split()[1], line.split()[2], line.split()[3:]] for line in lines]
-    else:
-        lines = [[line.split()[0], line.split()[1], line.split()[2], ' '.join(line.split()[3:])] for line in lines]
-
+    lines = [[line.split()[0], line.split()[1], line.split()[2], ' '.join(line.split()[3:])] for line in lines]
     df = pd.DataFrame(lines, columns=['topic', 'sentiment', 'id', 'text'])
 
     return df
