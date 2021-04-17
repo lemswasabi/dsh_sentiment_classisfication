@@ -2,16 +2,16 @@
 
 import pandas as pd
 
-PATH_TO_TXT = '../data_text/trainset.txt'
-
-def trainset_to_df():
+def trainset_to_df(path):
     """
     trainset_to_df converts trainset.txt to a pandas dataframe
+    Args:
+        path: path string to trainset.txt
     Return:
         df: pandas dataframe of trainset.txt
     """
 
-    with open(PATH_TO_TXT, 'r') as f:
+    with open(path, 'r') as f:
         lines = f.readlines()
         lines = [line.rstrip('\n').strip() for line in lines]
 
