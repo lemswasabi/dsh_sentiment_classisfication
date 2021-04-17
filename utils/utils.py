@@ -21,4 +21,4 @@ def trainset_to_df(path, representation='bag_of_words'):
     return df
 
 if __name__ == '__main__':
-    df = trainset_to_df()
+    df = trainset_to_df('../data_text/trainset.txt')
