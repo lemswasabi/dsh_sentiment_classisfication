@@ -2,12 +2,11 @@
 
 import pandas as pd
 
-def trainset_to_df(path, representation='bag_of_words'):
+def trainset_to_df(path):
     """
     trainset_to_df converts trainset.txt to a pandas dataframe
     Args:
         path: path string to trainset.txt
-        representation: represenation of text, defaul: bag of words
     Return:
         df: pandas dataframe of trainset.txt
     """
