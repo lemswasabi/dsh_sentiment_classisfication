@@ -28,7 +28,7 @@ def trainset_to_df(path):
 
 def preprocess_dataset(path, text_representation='tfid', feature_selection=None):
     """
-    trainset_to_df converts trainset.txt to a pandas dataframe
+    Preprocess dataset and return features and labels
     Args:
         path: path string to trainset.txt
         text_representation: representation of text, default tfid
