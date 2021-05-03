@@ -44,9 +44,9 @@ def preprocess_dataset(path, text_representation='tfid', feature_selection=None)
     reviews['text'] = reviews['text'].apply(process_text)
 
     # Removing all stopwords
-    stopwords = stopwords.words('english')
-    stopwords += 'nt'
-    reviews['text'] = reviews['text'].apply(lambda review: ' '.join([word for word in review.split() if word not in stopwords]))
+    stopword_list = stopwords.words('english')
+    stopword_list += 'nt'
+    reviews['text'] = reviews['text'].apply(lambda review: ' '.join([word for word in review.split() if word not in stopword_list]))
 
     # Drop id column
     reviews.drop('id', axis=1, inplace=True)
@@ -71,3 +71,4 @@ def preprocess_dataset(path, text_representation='tfid', feature_selection=None)
 
 if __name__ == '__main__':
     df = trainset_to_df('../data_text/trainset.txt')
+    X, y = preprocess_dataset('../data_text/trainset.txt')
