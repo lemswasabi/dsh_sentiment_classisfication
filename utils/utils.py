@@ -72,7 +72,7 @@ def preprocess_dataset(path, text_representation='tfid', feature_selection=None,
     if labels == 'both':
         labels = reviews.drop('text', axis=1)
     elif labels == 'sentiment':
-        labels = reviews[['sentiment']]
+        labels = reviews['sentiment']
     else:
         labels = reviews[['topic', 'topic_labels']]
 
