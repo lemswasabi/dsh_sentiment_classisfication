@@ -34,7 +34,7 @@ def preprocess_dataset(path, text_representation='tfid', feature_selection=None)
         text_representation: representation of text, default tfid
         feature_selection: type of feature_selection, default None
     Return:
-        (processedText, labels): preprocessed features and labels
+        (processedText, labels): preprocessed features and labels (contains 'sentiment' and one-hot encoding of 'topic')
     """
 
     reviews = trainset_to_df(path)
