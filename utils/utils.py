@@ -2,6 +2,7 @@
 
 import nltk
 import string
+import numpy as np
 import pandas as pd
 
 from nltk.corpus import stopwords
@@ -28,16 +29,16 @@ def trainset_to_df(path):
 
     return df
 
-def preprocess_dataset(path, text_representation='tfid', feature_selection=None, labels='both'):
+def preprocess_dataset(path, text_representation='tfid', feature_selection=None, labels='sentiment'):
     """
     Preprocess dataset and return features and labels
     Args:
         path: path string to trainset.txt
         text_representation: representation of text, default tfid
         feature_selection: type of feature_selection, default None
-        labels: return type of labels, default both
+        labels: return type of labels, default sentiment
     Return:
-        (processedText, labels): preprocessed features and labels (contains binarized 'sentiment' and/or label encoding of 'topic' and label 'topic_labels')
+        (features, y_labels): preprocessed features and labels ([contains binarized 'sentiment'] or [label encoding of 'topic' and label 'topic_labels'])
     """
 
     reviews = trainset_to_df(path)
@@ -66,18 +67,34 @@ def preprocess_dataset(path, text_representation='tfid', feature_selection=None,
     if text_representation == 'tfid':
 
         vectorizer = TfidfVectorizer (max_features=2500, min_df=7, max_df=0.8)
-        processedText = vectorizer.fit_transform(reviews['text']).toarray()
+        features = vectorizer.fit_transform(reviews['text']).toarray()
 
     # Get labels
-    if labels == 'both':
-        labels = reviews.drop('text', axis=1)
-    elif labels == 'sentiment':
-        labels = reviews['sentiment']
+    if labels == 'sentiment':
+        y_labels = reviews['sentiment']
     else:
-        labels = reviews[['topic', 'topic_labels']]
+        y_labels = reviews[['topic', 'topic_labels']]
 
-    return (processedText, labels)
+    # Feature selection
+    if feature_selection == 'variance_threshold':
+
+        from sklearn.feature_selection import VarianceThreshold
+        var_thres = VarianceThreshold(threshold=np.var(features))
+        features = var_thres.fit_transform(features)
+
+    elif feature_selection == 'chi_square_test':
+
+        from sklearn.feature_selection import SelectKBest, chi2
+        chi2 = SelectKBest(chi2, k=features.shape[1])
+        if labels == 'topic':
+            features = chi2.fit_transform(features, y_labels.iloc[:, 0])
+        else:
+            features = chi2.fit_transform(features, y_labels)
+
+    return (features, y_labels)
 
 if __name__ == '__main__':
     df = trainset_to_df('../data_text/trainset.txt')
-    X, y = preprocess_dataset('../data_text/trainset.txt')
+    X, y = preprocess_dataset('../data_text/trainset.txt', feature_selection='chi_square_test', labels='sentiment')
+
+    print(X, y)
