@@ -23,7 +23,7 @@ parameters = \
 
         {
             'clf': [KNeighborsClassifier()],
-            'n_neighbors': [*range(5,100,10)],
+            'n_neighbors': [*range(5, 100, 10)],
             'p': [1, 2]
         },
 
