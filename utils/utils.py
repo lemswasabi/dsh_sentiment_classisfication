@@ -29,11 +29,15 @@ def trainset_to_df(path):
 
     return df
 
-def preprocess_dataset(path, text_representation='tfidf', tfidf_max_features=None, tfidf_min_df=7, tfidf_max_df=0.8, feature_selection=None, labels='sentiment'):
+def preprocess_dataset(path, remove_punctuation=True,
+                       text_representation='tfidf', tfidf_max_features=None,
+                       tfidf_min_df=7, tfidf_max_df=0.8,
+                       feature_selection=None, labels='sentiment'):
     """
     Preprocess dataset and return features and labels
     Args:
         path: path string to trainset.txt
+        remove_punctuation: remove punctuation flag, default True
         text_representation: representation of text, default tfidf
         tfidf_max_features: max_features for tfidf, default None
         tfidf_min_df: min_df for tfidf, default 7
@@ -41,14 +45,17 @@ def preprocess_dataset(path, text_representation='tfidf', tfidf_max_features=Non
         feature_selection: type of feature_selection, default None
         labels: return type of labels, default sentiment
     Return:
-        (features, y_labels): preprocessed features and labels ([contains binarized 'sentiment'] or [label encoding of 'topic' and label 'topic_labels'])
+        (features, y_labels): preprocessed features and labels ([contains
+        binarized 'sentiment'] or [label encoding of 'topic' and label
+        'topic_labels'])
     """
 
     reviews = trainset_to_df(path)
 
     # Removing punctuations
-    process_text = lambda review: ' '.join(review.translate(str.maketrans('', '', string.punctuation)).split())
-    reviews['text'] = reviews['text'].apply(process_text)
+    if remove_punctuation:
+        process_text = lambda review: ' '.join(review.translate(str.maketrans('', '', string.punctuation)).split())
+        reviews['text'] = reviews['text'].apply(process_text)
 
     # Removing all stopwords
     stopword_list = stopwords.words('english')
