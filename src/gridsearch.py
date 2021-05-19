@@ -17,12 +17,13 @@ def timeit(f):
     return wrapper
 
 @timeit
-def grid_search(X, y):
+def grid_search(X, y, n_jobs=-1):
     """
     Grid search looking for best estimator for each model candidate
     Args:
         X: Features
         y: labels
+        n_jobs: number of concurrently running workers, default: -1
     Return:
         result: dict containing best params sorted by best_score
     """
