@@ -3,7 +3,7 @@
 import pickle
 
 from src.gridsearch import grid_search
-from src.parameters import parameters
+from src.parameters_ensemble_methods import parameters
 from utils.utils import preprocess_dataset
 
 output_file = 'main.out'

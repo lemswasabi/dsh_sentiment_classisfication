@@ -3,7 +3,6 @@
 import operator
 
 from copy import deepcopy
-from .parameters import parameters
 from sklearn.model_selection import GridSearchCV
 
 def timeit(f):
@@ -17,12 +16,13 @@ def timeit(f):
     return wrapper
 
 @timeit
-def grid_search(X, y, n_jobs=-1):
+def grid_search(X, y, parameters, n_jobs=-1):
     """
     Grid search looking for best estimator for each model candidate
     Args:
         X: Features
         y: labels
+        parameters: parameters dict
         n_jobs: number of concurrently running workers, default: -1
     Return:
         result: dict containing best params sorted by best_score
