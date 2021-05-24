@@ -29,7 +29,6 @@ parameters = \
             'clf': [ExtraTreesClassifier()],
             'n_estimators': [10, 30, 50, 70, 90],
             'criterion': ['gini','entropy'],
-            'splitter': ['best','random'],
             'class_weight':['balanced', None],
             'max_samples': [100, 200, 300, 400, 500]
         },
