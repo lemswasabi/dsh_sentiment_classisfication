@@ -9,6 +9,9 @@ from utils.utils import preprocess_dataset
 output_file = 'main.out'
 
 def main():
+    """
+    A grid search framework to be used in a HPC environment
+    """
     X, y = preprocess_dataset('data_text/trainset.txt', remove_punctuation=False , feature_selection='chi_square_test')
 
     results_sentiment = grid_search(X, y, parameters)
